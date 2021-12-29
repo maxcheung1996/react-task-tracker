@@ -1,32 +1,18 @@
-const task = [
-  {
-    id: 1,
-    text: "Doctors Appointment",
-    day: "Feb 5th at 2:30pm",
-    reminder: true,
-  },
-  {
-    id: 2,
-    text: "Meeting at School",
-    day: "Feb 5th at 1:30pm",
-    reminder: true,
-  },
-  {
-    id: 3,
-    text: "Food Shopping",
-    day: "Feb 5th at 2:30pm",
-    reminder: false,
-  },
-];
+import { FaTimes } from "react-icons/fa";
 
-const Tasks = () => {
+const Task = ({ task, onDelete, onToogleReminder }) => {
   return (
-    <>
-      {task.map((task) => (
-        <h3>{task.text}</h3>
-      ))}
-    </>
+    <div onDoubleClick={() => onToogleReminder(task.id)} className="task">
+      <h3>
+        {task.text}{" "}
+        <FaTimes
+          style={{ color: "red", cursor: "pointer" }}
+          onClick={() => onDelete(task.id)}
+        />
+      </h3>
+      <p>{task.day}</p>
+    </div>
   );
 };
 
-export default Tasks;
+export default Task;
