@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 import { useState, useEffect } from "react";
 import AddTask from "./components/AddTask";
+import { type } from "@testing-library/user-event/dist/type";
 
 const App = () => {
   const [showAddTask, setShowAppTask] = useState(false);
@@ -59,10 +60,20 @@ const App = () => {
   };
 
   //Toggle Reminder
-  const toogleReminder = (id) => {
-    console.log(id);
+  const toogleReminder = async (id) => {
+    const taskToToogle = await fetchTasks(id);
+    const updTask = { ...taskToToogle, reminder: !taskToToogle.reminder };
+
+    const res = await fetch(`http://localhost:5000/tasks/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(updTask),
+    });
+    const data = await res.json();
     setTasks(
-      tasks.map((t) => (t.id === id ? { ...t, reminder: !t.reminder } : t))
+      tasks.map((t) => (t.id === id ? { ...t, reminder: data.reminder } : t))
     );
   };
 
