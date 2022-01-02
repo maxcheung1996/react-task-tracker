@@ -1,32 +1,8 @@
 {
   "tasks": [
     {
-      "0": {
-        "0": {
-          "0": {
-            "0": {
-              "0": {
-                "0": {
-                  "text": "1",
-                  "day": "2",
-                  "reminder": true,
-                  "id": 1
-                },
-                "reminder": true,
-                "id": 1
-              },
-              "reminder": true,
-              "id": 1
-            },
-            "reminder": true,
-            "id": 1
-          },
-          "reminder": true,
-          "id": 1
-        },
-        "reminder": true,
-        "id": 1
-      },
+      "text": "123",
+      "day": "321",
       "reminder": true,
       "id": 1
     }

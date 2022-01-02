@@ -5,6 +5,9 @@ import Tasks from "./components/Tasks";
 import { useState, useEffect } from "react";
 import AddTask from "./components/AddTask";
 import { type } from "@testing-library/user-event/dist/type";
+import Footer from "./components/Footer";
+import About from "./components/About";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 const App = () => {
   const [showAddTask, setShowAppTask] = useState(false);
@@ -71,7 +74,11 @@ const App = () => {
       },
       body: JSON.stringify(updTask),
     });
+
     const data = await res.json();
+
+    console.log("data: ", data);
+
     setTasks(
       tasks.map((t) => (t.id === id ? { ...t, reminder: data.reminder } : t))
     );
@@ -85,23 +92,29 @@ const App = () => {
   };
 
   return (
-    <div className="container">
-      <Header
-        onShowAddTask={() => onShowAddTask(!showAddTask)}
-        title="Task Tracker"
-        btn={btn}
-      />
-      {showAddTask && <AddTask onAddTask={addTask} tasks={tasks} />}
-      {tasks.length > 0 ? (
-        <Tasks
-          tasks={tasks}
-          onDelete={deleteTask}
-          onToogleReminder={toogleReminder}
+    <Router>
+      <div className="container">
+        <Header
+          onShowAddTask={() => onShowAddTask(!showAddTask)}
+          title="Task Tracker"
+          btn={btn}
         />
-      ) : (
-        "No Task To Show"
-      )}
-    </div>
+        {showAddTask && <AddTask onAddTask={addTask} tasks={tasks} />}
+        {tasks.length > 0 ? (
+          <Tasks
+            tasks={tasks}
+            onDelete={deleteTask}
+            onToogleReminder={toogleReminder}
+          />
+        ) : (
+          "No Task To Show"
+        )}
+        <Routes>
+          <Route path="/about" element={<About />} />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
   );
 };
 
